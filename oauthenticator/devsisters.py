@@ -62,6 +62,8 @@ class DevsistersOAuthenticator(OAuthenticator):
             # 부분을 사용하는 것이 id 표시 가독성 등의 측면에서 가장 효율적인 듯 하여, '@'를 기준으로 split
             name = auth_data['email'].split("@")[0]
 
+            groups = auth_data['resource_access'][self.client_id]['roles']
+
             auth_state = dict(
                 access_token=resp['access_token'],
                 refresh_token=resp.get('refresh_token', None),
@@ -72,6 +74,7 @@ class DevsistersOAuthenticator(OAuthenticator):
 
             return dict(
                 name=name,
+                groups=groups,
                 auth_state=auth_state
             )
 
